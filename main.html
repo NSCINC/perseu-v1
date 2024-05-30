@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="ICON.JPEG" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perseu - iA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #222;
+            color: #fff;
+        }
+        #chat-container {
+            width: 90%;
+            max-width: 400px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        #messages {
+            max-height: 300px;
+            padding: 20px;
+            overflow-y: auto;
+            border-bottom: 1px solid #555;
+            border-radius: 5px;
+            background-color: #333;
+        }
+        .message {
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        .message.user {
+            text-align: right;
+        }
+        .message.bot {
+            text-align: left;
+        }
+        #input-container {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 10px;
+            background-color: #444;
+            border-radius: 5px;
+        }
+        #input-container input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        #input-container button {
+            padding: 12px 20px;
+            border: none;
+            background: #007bff;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #input-container button:hover {
+            background: #0056b3;
+        }
+        #profile-icon {
+            width: 30px;
+            height: 30px;
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <h1>Perseu - IA</h1>
+        <div id="messages"></div>
+        <div id="input-container">
+            <input type="text" id="user-input" placeholder="Digite sua mensagem...">
+            <button onclick="sendMessage()">Enviar</button>
+            <a href="profile.html"><img src="icone_profile.png" alt="Ícone de perfil" id="profile-icon"></a>
+        </div>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const userInput = document.getElementById('user-input').value.trim();
+            if (!userInput) return;
+
+            const messageContainer = document.getElementById('messages');
+            const userMessage = createMessageElement('user', userInput);
+            messageContainer.appendChild(userMessage);
+
+            try {
+                const botResponse = await getBotResponse(userInput);
+
+                const botMessage = createMessageElement('bot', botResponse);
+                messageContainer.appendChild(botMessage);
+            } catch (error) {
+                const botMessage = createMessageElement('bot', 'Ocorreu um erro ao processar a sua solicitação.');
+                messageContainer.appendChild(botMessage);
+            }
+
+            document.getElementById('user-input').value = '';
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+        }
+
+        async function getBotResponse(userInput) {
+            const response = await fetch(`https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=${encodeURIComponent(userInput)}`);
+            const data = await response.json();
+            const searchResults = data.query.search;
+
+            if (searchResults.length > 0) {
+                return searchResults[0].snippet;
+            } else {
+                return 'Desculpe, não encontrei resultados para essa consulta.';
+            }
+        }
+
+        function createMessageElement(sender, text) {
+            const message = document.createElement('div');
+            message.className = `message ${sender}`;
+            message.textContent = text;
+            return message;
+        }
+    </script>
+</body>
+</html>

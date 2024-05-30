@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="ICON.JPEG" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #222;
+            color: #fff;
+        }
+        #login-container {
+            width: 90%;
+            max-width: 400px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+        }
+        .action-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background: #007bff;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        .action-button:hover {
+            background: #0056b3;
+        }
+        #register-button {
+            background: #28a745;
+        }
+        #register-button:hover {
+            background: #218838;
+        }
+        #error-message {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="login-container">
+        <h1>Login</h1>
+        <form id="login-form" action="authenticate.php" method="POST">
+            <input type="email" name="email" placeholder="E-mail" required>
+            <input type="password" name="password" placeholder="Senha" required>
+            <button type="submit" class="action-button">Entrar</button>
+        </form>
+        <button type="button" id="register-button" class="action-button" onclick="redirectToRegister()">Registrar</button>
+        <div id="error-message">
+            <?php
+                if (isset($_GET['error'])) {
+                    echo htmlspecialchars($_GET['error']);
+                }
+            ?>
+        </div>
+    </div>
+
+    <script>
+        function redirectToRegister() {
+            window.location.href = 'registro.html';
+        }
+
+        // Adiciona um event listener para o submit do formulário de login
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            // Evita o comportamento padrão de envio do formulário
+            event.preventDefault();
+
+            // Obtém os valores dos campos de e-mail e senha
+            var email = document.getElementsByName('email')[0].value.trim();
+            var password = document.getElementsByName('password')[0].value.trim();
+
+            // Simula a autenticação bem-sucedida (substitua por sua lógica real de autenticação)
+            var authenticated = true; // Simula que o usuário foi autenticado com sucesso
+
+            if (authenticated) {
+                // Redireciona para a página main.html após o login bem-sucedido
+                window.location.href = 'main.html';
+            } else {
+                // Caso a autenticação falhe, exibe uma mensagem de erro (você pode substituir isso por sua lógica real de tratamento de erro)
+                var errorMessage = 'Login failed. Please check your credentials and try again.';
+                document.getElementById('error-message').textContent = errorMessage;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+name: Chatbot Workflow
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  chatbot_job:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+      
+    - name: Run chatbot script
+      run: python chatbot.py ${{ github.event.comment.body }}
