@@ -11,7 +11,7 @@ Perseu V1 AI is an artificial intelligence chatbot designed to address academic 
 ## Technologies Used
 - **Programming Language:** Python
 - **Development Framework:** TensorFlow, PyTorch
-- **Chat Platform:** Discord API, Telegram API, or another platform of your choice
+- **Chat Platform:** Discord API, WIKIPEDIA API , or another platform of your choice
 - **Other Libraries and Tools:** NLTK (Natural Language Toolkit), spaCy, Flask (for creating APIs, if necessary)
 
 ## How to Use
