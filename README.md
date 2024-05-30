@@ -1,4 +1,4 @@
-# Perseu V1 AI - Academic Chatbot
+ # Perseu V1 AI - Academic Chatbot 👨‍🎓
 
 ## Description
 Perseu V1 AI is an artificial intelligence chatbot designed to address academic issues. It aims to provide assistance in a variety of education-related tasks, such as answering questions, providing educational resources, and offering support in specific study areas.
