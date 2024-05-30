@@ -29,5 +29,5 @@ Contributions are welcome! If you wish to contribute to the development of Perse
 ## Contact
 For more information or support, please contact the main developer:
 - Name: Lucas Januário
-- <link rel="img" href="ICON.JPEG" />
+<img src="ICON.JPEG">
 # perseu-v1
